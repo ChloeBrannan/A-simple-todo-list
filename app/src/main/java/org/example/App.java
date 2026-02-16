@@ -1,47 +1,35 @@
 package org.example;
-import java.util.ArrayList;
+
+import java.util.Scanner;
 
 public class App {
-  ArrayList<String> tasks = new ArrayList<>();
-  ArrayList<Boolean> status = new ArrayList<>();
+  public static void main(String[] args) {
+    TodoList list = new TodoList();
+    Scanner sc = new Scanner(System.in);
+    String op = "";
 
-  public void add(String task) {
-    if (task != null && !task.isEmpty()) {
-      tasks.add(task);
-      status.add(false);
-    }
-  }
-
-  public void complete(int i) {
-    if (i >= 0 && i < status.size()) {
-      status.set(i, true);
-    }
-  }
-
-  // This method is required by your Driver
-  public void show(String type) {
-    for (int i = 0; i < tasks.size(); i++) {
-      boolean done = status.get(i);
-      if (type.equals("all") || (type.equals("done") && done) || (type.equals("open") && !done)) {
-        System.out.println(i + ". " + (done ? "[X] " : "[ ] ") + tasks.get(i));
+    while (!op.equals("5")) {
+      System.out.print("\n1.Add  2.Done  3.View  4.Clear 5.Exit: ");
+      op = sc.nextLine();
+      try {
+        if (op.equals("1")) {
+          System.out.print("Enter task: ");
+          list.add(sc.nextLine());
+        }
+        else if (op.equals("2")) {
+          System.out.print("Enter task number: ");
+          list.complete(Integer.parseInt(sc.nextLine()));
+        }
+        else if (op.equals("3")) {
+          list.show("all");
+        }
+        else if (op.equals("4")) {
+          list.clear();
+        }
+      } catch (Exception e) {
+        System.out.println("Invalid Input");
       }
     }
-  }
-
-  // These methods are required by your AppTest
-  public int getTaskCount() {
-    return tasks.size();
-  }
-
-  public boolean isTaskComplete(int i) {
-    return status.get(i);
-  }
-
-  public void clear() {
-    tasks.clear();
-    status.clear();
-  }
-
-  public void show(String all) {
+    sc.close();
   }
 }

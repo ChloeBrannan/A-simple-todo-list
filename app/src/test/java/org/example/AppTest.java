@@ -5,38 +5,38 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 public class AppTest {
-    App app;
+    TodoList list;
 
     @BeforeEach
     void setup() {
-        app = new App();
+        list = new TodoList();
     }
 
     @Test
     void testAddTask() {
-        app.add("Do your homework");
-        assertEquals(1, app.getTaskCount());
+        list.add("Do your homework");
+        assertEquals(1, list.getTaskCount());
     }
 
     @Test
     void testCompleteTask() {
-        app.add("Restock the store");
-        app.complete(0);
-        assertTrue(app.isTaskComplete(0));
+        list.add("Restock the store");
+        list.complete(0);
+        assertTrue(list.isTaskComplete(0));
     }
 
     @Test
     void testClearList() {
-        app.add("Task number 2");
-        app.add("Task 5");
-        app.clear();
-        assertEquals(0, app.getTaskCount());
+        list.add("Task number 2");
+        list.add("Task 5");
+        list.clear();
+        assertEquals(0, list.getTaskCount());
     }
 
     @Test
     void testInvalidComplete() {
-
-        app.complete(99);
-        assertEquals(0, app.getTaskCount());
+        list.complete(99);
+        // Task count should still be 0 if nothing was added
+        assertEquals(0, list.getTaskCount());
     }
 }
